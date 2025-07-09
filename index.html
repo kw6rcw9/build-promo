@@ -3,12 +3,43 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"
+  />
     <title>Unity WebGL Player | promoIthub</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+      }
+       #unity-container {
+    width: 540px;
+    height: 1140px;
+    margin: auto;
+    position: relative;
+  }
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 540px !important;
+    max-height: 1140px !important;
+    image-rendering: pixelated;
+    background: black;
+    display: block;
+  }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
     <canvas id="unity-canvas" width=540 height=1140 tabindex="-1" style="width: 540px; height: 1140px; background: #231F20"></canvas>
     <script src="Build/TgBuild.loader.js"></script>
     <script>
+      let telegramAppChatLabs = window.Telegram.WebApp;
+      let firstName = telegramAppChatLabs.initDataUnsafe.username;
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
@@ -23,7 +54,7 @@
 
         document.body.style.textAlign = "left";
       }
-
+      var myGameInstance = null;
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/TgBuild.data",
         frameworkUrl: "Build/TgBuild.framework.js",
@@ -34,7 +65,15 @@
         productVersion: "1.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-      });
+      }).then((unityInstance) => {
+            myGameInstance = unityInstance;
+            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', JSON.stringify({ firstName: firstName}));
+            
+        });
+    </script>
+     <script>
+      Telegram.WebApp.expand()
+      Telegram.WebApp.ready()
     </script>
   </body>
 </html>
