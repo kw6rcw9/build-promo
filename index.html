@@ -39,7 +39,7 @@
     <script src="Build/TgBuild.loader.js"></script>
     <script>
       let telegramAppChatLabs = window.Telegram.WebApp;
-      let firstName = telegramAppChatLabs.initDataUnsafe.username;
+      let firstName = telegramAppChatLabs.initDataUnsafe.user.username;
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
@@ -67,7 +67,7 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then((unityInstance) => {
             myGameInstance = unityInstance;
-            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', JSON.stringify({ firstName: firstName}));
+            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', JSON.stringify(firstName));
             
         });
     </script>
