@@ -38,6 +38,8 @@
     <canvas id="unity-canvas" width=540 height=1140 tabindex="-1" style="width: 540px; height: 1140px; background: #231F20"></canvas>
     <script src="Build/TgBuild.loader.js"></script>
     <script>
+      let telegramAppChatLabs = window.Telegram.WebApp;
+      let firstName = telegramAppChatLabs.initDataUnsafe.username;
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
@@ -52,7 +54,7 @@
 
         document.body.style.textAlign = "left";
       }
-
+      var myGameInstance = null;
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/TgBuild.data",
         frameworkUrl: "Build/TgBuild.framework.js",
@@ -63,7 +65,11 @@
         productVersion: "1.0",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-      });
+      }).then((unityInstance) => {
+            myGameInstance = unityInstance;
+            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', JSON.stringify({ firstName: firstName}));
+            
+        });
     </script>
      <script>
       Telegram.WebApp.expand()
