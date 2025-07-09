@@ -67,7 +67,7 @@
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
       }).then((unityInstance) => {
             myGameInstance = unityInstance;
-            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', JSON.stringify(firstName));
+            myGameInstance.SendMessage('TELEGRAM', 'JsSendInfo', firstName);
             
         });
     </script>
