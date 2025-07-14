@@ -70,15 +70,15 @@
     <canvas id="unity-canvas" width="960" height="600"></canvas>
 
     <!-- Замените пути на свои файлы билда -->
-    <script src="Build/TestBuild.loader.js"></script>
+    <script src="Build/TgBuild.loader.js"></script>
     <script>
        let telegramAppChatLabs = window.Telegram.WebApp;
       let firstName = telegramAppChatLabs.initDataUnsafe.user.username;
       var gameInstance = null;
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/TestBuild.data",
-        frameworkUrl: "Build/TestBuild.framework.js",
-        codeUrl: "Build/TestBuild.wasm",
+        dataUrl: "Build/TgBuild.data",
+        frameworkUrl: "Build/TgBuild.framework.js",
+        codeUrl: "Build/TgBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "promoIthub",
